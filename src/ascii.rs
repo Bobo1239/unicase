@@ -9,8 +9,15 @@ use std::str::FromStr;
 use super::Ascii;
 
 impl<S> Ascii<S> {
+    #[cfg(not(feature = "nightly"))]
     #[inline]
     pub fn new(s: S) -> Ascii<S> {
+        Ascii(s)
+    }
+
+    #[cfg(feature = "nightly")]
+    #[inline]
+    pub const fn new(s: S) -> Ascii<S> {
         Ascii(s)
     }
 }

@@ -1,6 +1,6 @@
 #![cfg_attr(test, deny(missing_docs))]
 #![cfg_attr(test, deny(warnings))]
-#![cfg_attr(feature = "nightly", feature(test))]
+#![cfg_attr(feature = "nightly", feature(test, const_fn))]
 
 //! # UniCase
 //!
@@ -118,8 +118,15 @@ impl<S: AsRef<str>> UniCase<S> {
         }
     }
 
+    #[cfg(not(feature = "nightly"))]
     /// Creates a new `UniCase`, skipping the ASCII check.
     pub fn unicode(s: S) -> UniCase<S> {
+        UniCase(Encoding::Unicode(Unicode(s)))
+    }
+
+    #[cfg(feature = "nightly")]
+    /// Creates a new `UniCase`, skipping the ASCII check.
+    pub const fn unicode(s: S) -> UniCase<S> {
         UniCase(Encoding::Unicode(Unicode(s)))
     }
 }
