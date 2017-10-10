@@ -62,7 +62,7 @@ pub struct UniCase<S>(Encoding<S>);
 
 /// Case Insensitive wrapper of Ascii strings.
 #[derive(Clone, Copy, Debug)]
-pub struct Ascii<S>(S);
+pub struct Ascii<S>(pub S);
 
 /// Compare two string-like types for case-less equality, using unicode folding.
 ///
